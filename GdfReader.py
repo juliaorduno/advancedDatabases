@@ -2,6 +2,7 @@ class GdfReader:
     def __init__(self, file):
         self.file = file
         self.graph = {}
+        self.inGraph = {}
         self.nodesInfo = {}
         self.nodes = 0
         self.edges = 0
@@ -22,6 +23,13 @@ class GdfReader:
                     self.edges += 1
                     line = line.split(',')[0:2]
                     self.graph[line[0]].append(line[1])
+
+    def getInGraph(self):
+        for node in self.graph:
+            for n in self.graph[node]:
+                if n not in self.inGraph:
+                    self.inGraph[n] = []
+                self.inGraph[n].append(node)
 
     def writeGdf(self, graph):
         f = open("newgdg.gdf","w")
